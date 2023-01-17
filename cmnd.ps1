@@ -1,1 +1,1 @@
-powershell explorer.exe
+start chrome
