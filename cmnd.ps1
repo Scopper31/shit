@@ -1,1 +1,1 @@
-ipconfig
+paint.exe
