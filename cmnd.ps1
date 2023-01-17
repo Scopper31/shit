@@ -1,1 +1,1 @@
-paint.exe
+mspaint
