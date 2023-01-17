@@ -1,1 +1,1 @@
-mspaint
+powershell explorer.exe
