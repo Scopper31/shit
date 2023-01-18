@@ -1,1 +1,1 @@
-start chrome
+ipconfig
