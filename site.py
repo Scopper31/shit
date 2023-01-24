@@ -11,7 +11,7 @@ def cmd():
     global out
     if request.method == 'POST':
         command = request.form['command']
-        out += command + '\n'
+        out += command + '<br />\n'
     return command
 
 
