@@ -1,1 +1,1 @@
-http://scopper.pythonanywhere.com
+http://sosik.pythonanywhere.com
