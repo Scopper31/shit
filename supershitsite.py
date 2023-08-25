@@ -14,61 +14,57 @@ def user():
     return users
 
 
-@app.route('/users/<mac>', methods=['GET'])
-def list_users(mac):
-    return f'salam! {mac}'
+@app.route('/users/<name>', methods=['GET'])
+def list_users(name):
+    return f'salam! {name}'
 
 
-@app.route('/users/<mac>/command', methods=['GET', 'POST'])
-def command(mac):
+@app.route('/users/<name>/command', methods=['GET', 'POST'])
+def command(name):
     if request.method == 'POST':
-        users[mac]['cmd'] = request.form['cmd']
-        if users[mac]['cmd'] == 'clear':
-            users[mac]['out'] = ''
+        users[name]['cmd'] = request.form['cmd']
+        if users[name]['cmd'] == 'clear':
+            users[name]['out'] = ''
         else:
-            users[mac]['out'] += users[mac]['cmd'] + '<br/>'
-    return users[mac]['cmd']
+            users[name]['out'] += users[name]['cmd'] + '<br/>'
+    return users[name]['cmd']
 
 
-@app.route('/users/<mac>/output', methods=['GET', 'POST'])
-def output(mac):
+@app.route('/users/<name>/output', methods=['GET', 'POST'])
+def output(name):
     if request.method == 'POST':
         req = request.form['out'].encode('cp1251').decode('cp866')
         req = req.replace("\n", "<br/>")
         if req != '':
-            users[mac]['out'] += req + '<br/>' + '-' * 600 + '<br/>'
-    return users[mac]['out']
+            users[name]['out'] += req + '<br/>' + '-' * 600 + '<br/>'
+    return users[name]['out']
 
 
-@app.route('/users/<mac>/clear', methods=['GET'])
-def clear(mac):
-    users[mac]['cmd'] = ''
+@app.route('/users/<name>/clear', methods=['GET'])
+def clear(name):
+    users[name]['cmd'] = ''
     return "Command cleared"
 
 
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
-    mac = request.form['mac']
-    if mac not in users:
-        users[mac] = {'out': '', 'cmd': '', 'onl': 'online', 'last': 0}
+    name = request.form['name']
+    if name not in users:
+        users[name] = {'out': '', 'cmd': '', 'online': True}
     return "new guy joined!!!"
 
 
-@app.route('/users/<mac>/online', methods=['GET', 'POST'])
-def online(mac):
-    users[mac]['last'] = 0
-    users[mac]['online'] = 'online'
-    return users[mac]['online']
+@app.route('/users/<name>/online', methods=['GET'])
+def online(name):
+    users[name]['online'] = True
+    return users[name]['online']
 
 
-async def is_online():
-    for mac in users:
-        users[mac]['last'] += 1
-        if users[mac]['last'] >= 5:
-            users[mac]['online'] = 'offline'
-    time.sleep(1)
+@app.route('/users/<name>/offline', methods=['GET'])
+def offline(name):
+    users[name]['online'] = False
+    return users[name]['online']
 
 
 if __name__ == '__main__':
-    is_online()
     app.run()
